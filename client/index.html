@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>炸金花 - 局域网联机游戏</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- 登录界面 -->
+  <div id="loginScreen" class="screen active">
+    <div class="login-container">
+      <h1 class="game-title">🎴 炸金花</h1>
+      <div class="login-form">
+        <input type="text" id="playerName" placeholder="输入你的昵称" maxlength="12" />
+        <input type="text" id="serverAddress" placeholder="服务器地址 (ws://IP:8080)" value="ws://localhost:8080" />
+        <button id="joinBtn" class="btn btn-primary">加入游戏</button>
+      </div>
+      <div class="status-message" id="loginStatus"></div>
+    </div>
+  </div>
+
+  <!-- 房间列表界面 -->
+  <div id="lobbyScreen" class="screen">
+    <div class="lobby-container">
+      <div class="lobby-header">
+        <h2>游戏大厅</h2>
+        <div class="player-info">
+          <span id="currentPlayerName"></span>
+          <button id="logoutBtn" class="btn btn-small">退出</button>
+        </div>
+      </div>
+
+      <div class="lobby-content">
+        <div class="room-list-section">
+          <div class="section-header">
+            <h3>房间列表</h3>
+            <button id="refreshRoomsBtn" class="btn btn-small">🔄 刷新</button>
+          </div>
+          <div id="roomList" class="room-list">
+            <div class="empty-message">暂无房间</div>
+          </div>
+        </div>
+
+        <div class="create-room-section">
+          <h3>创建房间</h3>
+          <div class="create-room-form">
+            <input type="text" id="roomName" placeholder="房间名称" maxlength="20" />
+            <button id="createRoomBtn" class="btn btn-primary">创建房间</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 房间等待界面 -->
+  <div id="roomScreen" class="screen">
+    <div class="room-container">
+      <div class="room-header">
+        <h2 id="roomTitle">房间</h2>
+        <button id="leaveRoomBtn" class="btn btn-small">离开房间</button>
+      </div>
+
+      <div class="room-content">
+        <div class="players-waiting">
+          <h3>玩家列表 (<span id="playerCount">0</span>/6)</h3>
+          <div id="waitingPlayerList" class="waiting-player-list"></div>
+        </div>
+
+        <div class="room-controls">
+          <button id="readyBtn" class="btn btn-primary">准备</button>
+          <button id="startGameBtn" class="btn btn-success" style="display: none;">开始游戏</button>
+        </div>
+
+        <div class="room-status" id="roomStatus"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 游戏界面 -->
+  <div id="gameScreen" class="screen">
+    <div class="game-container">
+      <!-- 游戏信息栏 -->
+      <div class="game-info">
+        <div class="pot-info">
+          <span class="label">奖池:</span>
+          <span id="potAmount" class="amount">0</span>
+        </div>
+        <div class="bet-info">
+          <span class="label">当前下注:</span>
+          <span id="currentBet" class="amount">10</span>
+        </div>
+        <button id="exitGameBtn" class="btn btn-small">退出游戏</button>
+      </div>
+
+      <!-- 其他玩家区域 -->
+      <div id="opponentsArea" class="opponents-area"></div>
+
+      <!-- 玩家手牌区域 -->
+      <div class="player-area">
+        <div class="player-info-bar">
+          <div class="player-name-chips">
+            <span id="myPlayerName" class="player-name"></span>
+            <span id="myChips" class="chips">💰 1000</span>
+          </div>
+          <div id="myBet" class="current-bet">已下注: 0</div>
+        </div>
+
+        <div id="myCards" class="my-cards"></div>
+
+        <!-- 操作按钮 -->
+        <div id="actionButtons" class="action-buttons">
+          <button id="seeCardsBtn" class="btn btn-action">看牌</button>
+          <button id="foldBtn" class="btn btn-danger">弃牌</button>
+          <button id="callBtn" class="btn btn-primary">跟注</button>
+          <button id="raiseBtn" class="btn btn-success">加注</button>
+          <button id="compareBtn" class="btn btn-warning">比牌</button>
+        </div>
+
+        <!-- 加注输入 -->
+        <div id="raiseInput" class="raise-input" style="display: none;">
+          <input type="number" id="raiseAmount" min="10" step="10" value="20" />
+          <button id="confirmRaiseBtn" class="btn btn-success">确认加注</button>
+          <button id="cancelRaiseBtn" class="btn btn-secondary">取消</button>
+        </div>
+      </div>
+
+      <!-- 游戏消息 -->
+      <div id="gameMessage" class="game-message"></div>
+    </div>
+  </div>
+
+  <!-- 游戏结束界面 -->
+  <div id="gameOverScreen" class="screen">
+    <div class="game-over-container">
+      <h2>🎉 游戏结束</h2>
+      <div id="gameResults" class="game-results"></div>
+      <div class="game-over-actions">
+        <button id="playAgainBtn" class="btn btn-primary">再来一局</button>
+        <button id="backToLobbyBtn" class="btn btn-secondary">返回大厅</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "poker-game-server",
+  "version": "1.0.0",
+  "description": "炸金花游戏服务器",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["poker", "websocket", "game"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "ws": "^8.16.0"
+  }
+}
